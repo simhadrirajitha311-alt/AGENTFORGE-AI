@@ -1,0 +1,16 @@
+services:
+  api:
+    build: .
+    environment:
+      AGENTFORGE_DATABASE_PATH: /srv/agentforge/data/agentforge.db
+      AGENTFORGE_ADMIN_TOKEN: ${AGENTFORGE_ADMIN_TOKEN:?Set a strong local admin token}
+      AGENTFORGE_LLM_PROVIDER: ${AGENTFORGE_LLM_PROVIDER:-mock}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - agentforge-data:/srv/agentforge/data
+    restart: unless-stopped
+
+volumes:
+  agentforge-data:
